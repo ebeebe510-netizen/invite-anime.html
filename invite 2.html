@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Төрсөн өдрийн урилга — Anime</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;700&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1: #ffecf8;
+      --bg2: #e6f0ff;
+      --accent: #ff7ab6;
+      --accent2: #7ad7ff;
+      --card: rgba(255,255,255,0.85);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: "Roboto", "Comfortaa", sans-serif;
+      background: linear-gradient(160deg,var(--bg1),var(--bg2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+      overflow:hidden;
+      color:#222;
+    }
+
+    .clouds {
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.6) 0 8%, transparent 9%),
+        radial-gradient(circle at 60% 30%, rgba(255,255,255,0.6) 0 12%, transparent 13%),
+        radial-gradient(circle at 80% 75%, rgba(255,255,255,0.5) 0 10%, transparent 11%);
+      opacity:0.9;
+      animation: drift 18s linear infinite;
+    }
+    @keyframes drift {
+      0%{ transform: translateX(-2%);}
+      50%{ transform: translateX(2%);}
+      100%{ transform: translateX(-2%);}
+    }
+
+    .card{
+      position:relative;
+      width:100%;
+      max-width:920px;
+      background: var(--card);
+      border-radius:24px;
+      box-shadow: 0 10px 40px rgba(20,20,30,0.12);
+      padding:28px;
+      z-index:2;
+      display:flex;
+      gap:20px;
+      align-items:center;
+      overflow:hidden;
+    }
+
+    .art {
+      width:48%;
+      min-height:300px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+
+    .chibi {
+      width:220px;
+      height:320px;
+      background: linear-gradient(180deg,#fff,#ffe8f3);
+      border-radius:20px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      padding-bottom:18px;
+      box-shadow: 0 8px 30px rgba(120,60,110,0.12), inset 0 -6px 18px rgba(0,0,0,0.02);
+      transform-origin:50% 90%;
+      animation: bob 3.6s ease-in-out infinite;
+    }
+    .face {
+      width:160px;
+      height:220px;
+      border-radius:18px;
+      background: repeating-linear-gradient(180deg, #ffdbe9 0 6px, #fff 6px 12px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+      color:#b23b6a;
+      text-align:center;
+      padding:12px;
+    }
+    @keyframes bob {
+      0%{ transform: translateY(0) rotate(-1deg); }
+      50%{ transform: translateY(-12px) rotate(1deg); }
+      100%{ transform: translateY(0) rotate(-1deg); }
+    }
+
+    .sparkles{
+      position:absolute;
+      inset:auto 0 8px 0;
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      pointer-events:none;
+    }
+    .sparkles i{
+      width:12px; height:12px; display:block;
+      background:linear-gradient(45deg,var(--accent),#ffd07a);
+      transform: rotate(25deg);
+      border-radius:3px;
+      filter:drop-shadow(0 2px 6px rgba(255,120,170,0.15));
+      animation: sparkle 2.4s linear infinite;
+    }
+    .sparkles i:nth-child(2){ animation-delay:0.6s; transform: rotate(-10deg); background:linear-gradient(45deg,var(--accent2),#caffff); }
+    .sparkles i:nth-child(3){ animation-delay:1.2s; transform: rotate(45deg); background:linear-gradient(45deg,#fff29a,#ffd4d4); }
+    @keyframes sparkle {
+      0%{ transform: translateY(0) scale(1); opacity:1; }
+      50%{ transform: translateY(-22px) scale(0.9); opacity:0.6; }
+      100%{ transform: translateY(0) scale(1); opacity:1; }
+    }
+
+    .info {
+      width:52%;
+      padding:6px 12px 6px 18px;
+    }
+    .title {
+      font-family:"Comfortaa",sans-serif;
+      font-size:2.2rem;
+      margin:6px 0 8px;
+      color:#2a1333;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .subtitle {
+      margin:0 0 14px;
+      color:#4a3a4a;
+      font-weight:500;
+    }
+    .meta {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:14px 0 18px;
+    }
+    .chip{
+      background:rgba(255,255,255,0.7);
+      border:1px solid rgba(30,20,30,0.04);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:600;
+      box-shadow: 0 6px 14px rgba(120,60,110,0.06);
+    }
+
+    .cta {
+      margin-top:8px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .btn {
+      display:inline-block;
+      padding:12px 20px;
+      border-radius:999px;
+      background: linear-gradient(90deg,var(--accent),#ffb09d);
+      color:white;
+      text-decoration:none;
+      font-weight:700;
+      box-shadow: 0 8px 24px rgba(250,100,150,0.18);
+      transform: translateY(0);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:active{ transform: translateY(2px); box-shadow:0 4px 12px rgba(250,100,150,0.12); }
+
+    .btn-ghost{
+      background:transparent;
+      color:var(--accent2);
+      border:2px solid rgba(120,190,240,0.22);
+      font-weight:700;
+    }
+
+    .confetti{
+      position:absolute;
+      top:-20px;
+      left:0;
+      right:0;
+      height:0;
+      pointer-events:none;
+    }
+    .confetti span{
+      position:absolute;
+      width:8px; height:14px;
+      background:var(--accent);
+      opacity:0.95;
+      transform-origin:center;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0%{ transform: translateY(-50vh) rotate(0deg); opacity:1;}
+      100%{ transform: translateY(110vh) rotate(360deg); opacity:0.9;}
+    }
+
+    @media (max-width:820px){
+      .card{ flex-direction:column; gap:14px; padding:18px; }
+      .art, .info{ width:100% }
+      .title{ font-size:1.6rem }
+      .chibi{ width:160px; height:220px }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="clouds"></div>
+
+  <div class="card">
+    <div class="art">
+      <div class="chibi">
+        <div class="face">Тогтох Дулам ♥</div>
+      </div>
+      <div class="sparkles"><i></i><i></i><i></i></div>
+    </div>
+
+    <div class="info">
+      <h1 class="title">Төрсөн өдрийн баярт урьж байна</h1>
+      <p class="subtitle">Миний хайрт <strong style="color:#ff7ab6">Тогтох Дулам</strong>, чамдаа зориулж энэ өдөрт урьж байна.</p>
+
+      <div class="meta">
+        <div class="chip">📅 10-р сарын 2</div>
+        <div class="chip">🕒 12:00 цагт</div>
+        <div class="chip">📍 ШУТИС 6-р байр</div>
+      </div>
+
+      <p style="margin:0 0 8px; color:#5a455a; line-height:1.45;">
+        Энэ өдөр надтай хамт байх нь хамгийн гоё бэлэг ♥
+      </p>
+
+      <div class="cta">
+        <a href="#" class="btn" onclick="acceptInvite(event)">Очноо ♥</a>
+        <a href="#" class="btn btn-ghost" onclick="maybeLater(event)">Дараа бодъё</a>
+      </div>
+    </div>
+
+    <div class="confetti">
+      <span style="left:5%; background:#ffd4e6; animation-duration:3.6s; animation-delay:0.1s;"></span>
+      <span style="left:18%; background:#c6f7ff; animation-duration:4.2s; animation-delay:0.5s;"></span>
+      <span style="left:32%; background:#fff6a7; animation-duration:3.9s; animation-delay:0.9s;"></span>
+      <span style="left:47%; background:#ffc7b8; animation-duration:4.5s; animation-delay:1.2s;"></span>
+      <span style="left:62%; background:#ffd4e6; animation-duration:3.7s; animation-delay:1.6s;"></span>
+      <span style="left:78%; background:#c6f7ff; animation-duration:4.1s; animation-delay:2.0s;"></span>
+      <span style="left:88%; background:#fff6a7; animation-duration:3.8s; animation-delay:2.4s;"></span>
+    </div>
+  </div>
+
+  <script>
+    function acceptInvite(e){
+      e.preventDefault();
+      const btn = e.currentTarget;
+      btn.textContent = "Хайртай шүү ♥";
+      btn.style.pointerEvents = "none";
+      btn.style.transform = "scale(0.98)";
+    }
+    function maybeLater(e){
+      e.preventDefault();
+      alert('За за, гэхдээ би чамайг хүлээж л байна 😌');
+    }
+  </script>
+</body>
+</html>
